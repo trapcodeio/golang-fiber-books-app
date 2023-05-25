@@ -11,6 +11,7 @@ WORKDIR /go/src/fiber-book-app
 COPY ../. /go/src/fiber-book-app
 
 # list all files in the current directory
+RUN pwd
 RUN ls -la
 
 # Downloads all the dependencies in advance (could be left out, but it's more clear this way)
