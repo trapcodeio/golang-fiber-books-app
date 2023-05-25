@@ -5,7 +5,7 @@ services:
     build:
       context: ./../
       dockerfile: .docker/Dockerfile
-      target: release
+      target: build
     ports:
       - "9091:9000"
     volumes:
