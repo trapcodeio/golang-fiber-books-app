@@ -36,7 +36,7 @@ ENV ENV production
 WORKDIR /go/src/fiber-book-app
 
 # Copy all the Code and stuff to compile everything
-COPY ../. /go/src/fiber-book-app
+COPY . .
 
 # Downloads all the dependencies in advance (could be left out, but it's more clear this way)
 RUN go mod download
