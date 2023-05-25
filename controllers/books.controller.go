@@ -5,9 +5,11 @@ import (
 	"errors"
 	"fiber-book-app/helpers"
 	"fiber-book-app/models"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"time"
 )
 
@@ -16,7 +18,7 @@ var Book = models.BooksCollection()
 // AllBooks - Get all books
 func AllBooks(c *fiber.Ctx) error {
 	// get all books
-	cursor, err := Book.Find(context.Background(), bson.M{})
+	cursor, err := Book.Find(context.Background(), bson.M{}, models.ProjectAllBooks)
 	if err != nil {
 		return helpers.DbQueryError(c, err)
 	}
@@ -39,7 +41,7 @@ func AddBook(c *fiber.Ctx) error {
 	}
 
 	// validate body
-	if ok, message := models.Validate(*body); !ok {
+	if ok, message := models.ValidateBookForm(*body); !ok {
 		return helpers.BadRequest(c, errors.New(message))
 	}
 
@@ -64,10 +66,63 @@ func AddBook(c *fiber.Ctx) error {
 
 // GetBook - Get single book
 func GetBook(c *fiber.Ctx) error {
-	return c.SendString("GetBook")
+	// get bookId from locals
+	bookId := c.Locals("bookId").(primitive.ObjectID)
+
+	// find Book in db
+	var book models.Book
+	err := Book.FindOne(context.Background(), bson.M{"_id": bookId}).Decode(&book)
+
+	if err != nil && err != mongo.ErrNoDocuments {
+		return helpers.DbQueryError(c, err)
+	}
+
+	return c.JSON(book)
 }
 
 // UpdateBook - Update book
 func UpdateBook(c *fiber.Ctx) error {
-	return c.SendString("UpdateBook")
+	// parse body
+	body := new(models.BookForm)
+	if err := c.BodyParser(body); err != nil {
+		return helpers.BadRequest(c, err)
+	}
+
+	// validate body
+	if ok, message := models.ValidateBookForm(*body); !ok {
+		return helpers.BadRequest(c, errors.New(message))
+	}
+
+	// get bookId from locals
+	bookId := c.Locals("bookId").(primitive.ObjectID)
+
+	// update book
+	_, err := Book.UpdateOne(context.Background(), bson.M{"_id": bookId}, bson.M{
+		"$set": bson.M{
+			"title":       body.Title,
+			"description": body.Description,
+			"available":   body.Available,
+		},
+	}, nil)
+
+	if err != nil {
+		return helpers.DbQueryError(c, err)
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Book updated successfully!",
+	})
+}
+
+// DeleteAllBooks - Delete all books
+func DeleteAllBooks(c *fiber.Ctx) error {
+	deleted, err := Book.DeleteMany(context.Background(), bson.M{})
+
+	if err != nil {
+		return helpers.DbQueryError(c, err)
+	}
+
+	return c.JSON(fiber.Map{
+		"message": fmt.Sprintf("Deleted %v books successfully!", deleted.DeletedCount),
+	})
 }

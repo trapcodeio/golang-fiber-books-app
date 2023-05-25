@@ -4,6 +4,7 @@ import (
 	books "fiber-book-app/controllers"
 	"fiber-book-app/database"
 	"fiber-book-app/helpers/env"
+	"fiber-book-app/middlewares"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -38,13 +39,17 @@ func main() {
 	app.Use(cors.New())
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Go Lang books app.")
+		return c.JSON(fiber.Map{
+			"message": "Welcome to Fiber Book App",
+		})
 	})
 
+	// Register routes
 	app.Get("/books", books.AllBooks)
-	app.Get("/books/:id", books.GetBook)
 	app.Post("/books", books.AddBook)
-	app.Post("/books/:id", books.UpdateBook)
+	app.Get("/books/:id", middlewares.LoadBookParam, books.GetBook)
+	app.Put("/books/:id", middlewares.LoadBookParam, books.UpdateBook)
+	app.Delete("/books", books.DeleteAllBooks)
 
 	log.Fatal(app.Listen(":" + env.Values.AppPort))
 }

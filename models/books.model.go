@@ -2,8 +2,10 @@ package models
 
 import (
 	db "fiber-book-app/database"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Book struct {
@@ -21,13 +23,23 @@ type BookForm struct {
 	Available   bool   `json:"available"`
 }
 
+var ProjectAllBooks = options.Find().SetProjection(bson.M{
+	"_id":         0,
+	"id":          "$_id",
+	"title":       1,
+	"description": 1,
+	"available":   1,
+	"updatedAt":   1,
+	"createdAt":   1,
+})
+
 func BooksCollection() mongo.Collection {
 	connectedDb := db.GetDb()
 	collection := connectedDb.Collection("books")
 	return *collection
 }
 
-func Validate(book BookForm) (bool, string) {
+func ValidateBookForm(book BookForm) (bool, string) {
 	// validate book title
 	if book.Title == "" {
 		return false, "Title is required"
