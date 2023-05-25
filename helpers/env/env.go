@@ -13,7 +13,7 @@ type values struct {
 
 	AppPort string `env:"APP_PORT" envDefault:"9000"`
 
-	DbServer   string `env:"DB_SERVER" envDefault:"mongodb://localhost:27017"`
+	DbServer   string `env:"DB_SERVER" envDefault:"mongodb://127.0.0.1:27017"`
 	DbName     string `env:"DB_NAME" envDefault:"book_app"`
 	DbPassword string `env:"DB_PASSWORD" envDefault:""`
 }
