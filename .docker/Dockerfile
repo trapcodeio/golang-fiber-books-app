@@ -7,8 +7,11 @@ RUN go install github.com/cosmtrek/air@latest
 # Set the Current Working Directory inside the container
 WORKDIR /go/src/fiber-book-app
 
-# Copy all the Code and stuff to compile everything
+# Copy all files from parent directory to the current working directory
 COPY ../. .
+
+# list all files in the current directory
+RUN ls -la
 
 # Downloads all the dependencies in advance (could be left out, but it's more clear this way)
 RUN go mod download
