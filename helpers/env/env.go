@@ -10,7 +10,7 @@ import (
 var loaded = false
 
 type values struct {
-	Env string `env:"ENV"`
+	Env string `env:"ENV" envDefault:"development"`
 
 	AppPort string `env:"APP_PORT" envDefault:"9000"`
 
