@@ -1,6 +1,6 @@
 # GoLang Fiber Books App
 
-A simple books app.
+A simple books app
 
 # Stack
 
