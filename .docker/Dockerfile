@@ -8,7 +8,7 @@ RUN go install github.com/cosmtrek/air@latest
 WORKDIR /go/src/fiber-book-app
 
 # Copy all files from parent directory to the current working directory
-COPY ../. /go/src/fiber-book-app
+COPY . .
 
 # list all files in the current directory
 RUN pwd
