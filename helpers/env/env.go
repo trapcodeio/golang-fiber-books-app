@@ -1,6 +1,7 @@
 package env
 
 import (
+	"fmt"
 	"github.com/caarlos0/env/v8"
 	"github.com/joho/godotenv"
 	"log"
@@ -32,7 +33,7 @@ func LoadIfNotLoaded() {
 	// Load .env file
 	err := godotenv.Load()
 	if err != nil {
-		panic("Error loading .env file")
+		fmt.Println("Error loading .env file, using default values")
 	}
 
 	Values = values{}
