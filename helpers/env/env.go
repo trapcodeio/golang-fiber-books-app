@@ -14,8 +14,8 @@ type values struct {
 
 	AppPort string `env:"APP_PORT" envDefault:"9000"`
 
-	DbServer   string `env:"DB_SERVER" envDefault:"mongodb://mongo/books"`
-	DbName     string `env:"DB_NAME" envDefault:"books"`
+	DbServer   string `env:"MONGODB_SERVER" envDefault:"mongodb://mongo/books"`
+	DbName     string `env:"MONGODB_DATABASE" envDefault:"books"`
 	DbPassword string `env:"DB_PASSWORD" envDefault:""`
 }
 
@@ -44,9 +44,6 @@ func LoadIfNotLoaded() {
 
 	// mark as loaded
 	loaded = true
-
-	// print env values for debugging
-	fmt.Println("Envs", Values)
 }
 
 func IsDevelopment() bool {
