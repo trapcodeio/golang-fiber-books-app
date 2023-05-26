@@ -51,5 +51,6 @@ func main() {
 	app.Put("/books/:id", middlewares.LoadBookParam, books.UpdateBook)
 	app.Delete("/books", books.DeleteAllBooks)
 
-	log.Fatal(app.Listen(":" + env.Values.AppPort))
+	//log.Fatal(app.Listen(":9000"))
+	log.Fatal(app.Listen("0.0.0.0:" + env.Values.AppPort))
 }

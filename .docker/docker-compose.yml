@@ -5,11 +5,11 @@ services:
     build:
       context: ./../
       dockerfile: .docker/Dockerfile
-      target: build
+      target: release # use `build` for production
     ports:
       - "9091:9000"
     volumes:
-      - ./../:/app
+      - ./../:/go/src/fiber-book-app
     links:
       - mongo
   mongo:
