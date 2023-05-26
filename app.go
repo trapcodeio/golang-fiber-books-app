@@ -52,5 +52,6 @@ func main() {
 	app.Delete("/books", books.DeleteAllBooks)
 
 	//log.Fatal(app.Listen(":9000"))
-	log.Fatal(app.Listen("0.0.0.0:" + env.Values.AppPort))
+	println("Listening on port " + env.Values.AppPort)
+	log.Fatal(app.Listen(":" + env.Values.AppPort))
 }
