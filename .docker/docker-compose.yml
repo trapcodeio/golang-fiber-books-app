@@ -6,6 +6,8 @@ services:
       context: ./../
       dockerfile: .docker/Dockerfile
       target: release # use `build` for production
+    environment:
+        - APP_PORT=9000
     ports:
       - "9091:9000"
     volumes:

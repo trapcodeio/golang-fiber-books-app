@@ -44,6 +44,9 @@ func LoadIfNotLoaded() {
 
 	// mark as loaded
 	loaded = true
+
+	// print env values for debugging
+	fmt.Println("Envs", Values)
 }
 
 func IsDevelopment() bool {
