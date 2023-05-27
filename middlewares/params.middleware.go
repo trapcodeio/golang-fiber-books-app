@@ -30,7 +30,7 @@ func LoadBookParam(c *fiber.Ctx) error {
 
 	if bookExists == 0 {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"message": "Book not found",
+			"error": "Book not found",
 		})
 	}
 
