@@ -114,6 +114,23 @@ func UpdateBook(c *fiber.Ctx) error {
 	})
 }
 
+// DeleteBook - Delete book
+func DeleteBook(c *fiber.Ctx) error {
+	// get bookId from locals
+	bookId := c.Locals("bookId").(primitive.ObjectID)
+
+	// delete book
+	_, err := Book.DeleteOne(context.Background(), bson.M{"_id": bookId})
+
+	if err != nil {
+		return helpers.DbQueryError(c, err)
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Book deleted successfully!",
+	})
+}
+
 // DeleteAllBooks - Delete all books
 func DeleteAllBooks(c *fiber.Ctx) error {
 	deleted, err := Book.DeleteMany(context.Background(), bson.M{})

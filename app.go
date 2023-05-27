@@ -49,6 +49,7 @@ func main() {
 	app.Post("/books", books.AddBook)
 	app.Get("/books/:id", middlewares.LoadBookParam, books.GetBook)
 	app.Put("/books/:id", middlewares.LoadBookParam, books.UpdateBook)
+	app.Delete("/books/:id", middlewares.LoadBookParam, books.DeleteBook)
 	app.Delete("/books", books.DeleteAllBooks)
 
 	//log.Fatal(app.Listen(":9000"))
