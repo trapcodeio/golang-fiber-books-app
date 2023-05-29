@@ -17,8 +17,18 @@ var Book = models.BooksCollection()
 
 // AllBooks - Get all books
 func AllBooks(c *fiber.Ctx) error {
+	// get `title` query param
+	title := c.Query("title")
+
+	query := bson.M{}
+
+	// if title is not empty use it as search query
+	if title != "" {
+		query = bson.M{"title": bson.M{"$regex": title, "$options": "i"}}
+	}
+
 	// get all books
-	cursor, err := Book.Find(context.Background(), bson.M{}, models.ProjectAllBooks)
+	cursor, err := Book.Find(context.Background(), query, models.ProjectAllBooks)
 	if err != nil {
 		return helpers.DbQueryError(c, err)
 	}

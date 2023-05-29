@@ -14,7 +14,7 @@ type values struct {
 
 	AppPort string `env:"APP_PORT" envDefault:"9000"`
 
-	DbServer   string `env:"MONGODB_SERVER" envDefault:"mongodb://mongo/books"`
+	DbServer   string `env:"MONGODB_SERVER" envDefault:"mongodb://127.0.0.1:27017"`
 	DbName     string `env:"MONGODB_DATABASE" envDefault:"books"`
 	DbPassword string `env:"DB_PASSWORD" envDefault:""`
 }
