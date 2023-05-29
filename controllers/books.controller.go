@@ -19,7 +19,6 @@ var Book = models.BooksCollection()
 func AllBooks(c *fiber.Ctx) error {
 	// get `title` query param
 	title := c.Query("title")
-
 	query := bson.M{}
 
 	// if title is not empty use it as search query
