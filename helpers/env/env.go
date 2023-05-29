@@ -16,7 +16,7 @@ type values struct {
 
 	DbServer   string `env:"MONGODB_SERVER" envDefault:"mongodb://127.0.0.1:27017"`
 	DbName     string `env:"MONGODB_DATABASE" envDefault:"books"`
-	DbPassword string `env:"DB_PASSWORD" envDefault:""`
+	DbPassword string `env:"MONGODB_PASSWORD" envDefault:""`
 }
 
 var Values values
