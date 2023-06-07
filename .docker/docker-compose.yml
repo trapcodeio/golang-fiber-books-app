@@ -10,7 +10,7 @@ services:
         - APP_PORT=9000
         - MONGODB_SERVER=mongodb://mongo/books
     ports:
-      - "9091:9000"
+      - "9000:9000"
     volumes:
       - ./../:/go/src/fiber-book-app
     links:
