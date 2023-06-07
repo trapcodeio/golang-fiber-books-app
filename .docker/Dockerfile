@@ -7,7 +7,7 @@ ENV ENV development
 RUN apk update && apk add --no-cache git
 
 # Needed for VS Code Remote Development
-RUN apk add musl libgcc libstdc++ curl wget bash ca-certificates gcompat openssh-client
+RUN apk add musl libgcc libstdc++ git curl wget bash ca-certificates gcompat openssh-client
 
 RUN go install github.com/cosmtrek/air@latest
 
