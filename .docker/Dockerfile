@@ -23,6 +23,9 @@ COPY . .
 # Install air for hot reloading
 RUN go get -u github.com/cosmtrek/air
 
+# Build the code to avoid air building the code at startup
+RUN go build .
+
 EXPOSE 9000
 
 # Run the executable
