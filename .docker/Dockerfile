@@ -9,7 +9,7 @@ RUN apk add musl libgcc libstdc++ git curl wget bash ca-certificates gcompat ope
 RUN go install github.com/cosmtrek/air@latest
 
 # Set the Current Working Directory inside the container
-WORKDIR /go/src/fiber-book-app
+WORKDIR /usr/src/app
 
 # Copy go mod and sum files
 COPY go.mod go.sum ./
@@ -42,7 +42,7 @@ ENV ENV production
 RUN apk update && apk add --no-cache git
 
 # Set the Current Working Directory inside the container
-WORKDIR /go/src/fiber-book-app
+WORKDIR /usr/src/app
 
 # Copy go mod and sum files
 COPY go.mod go.sum ./
