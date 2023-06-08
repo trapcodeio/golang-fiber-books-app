@@ -1,5 +1,5 @@
 # Development Image
-FROM golang:1.19-alpine AS release
+FROM golang:1.19-alpine AS dev
 
 ENV ENV development
 
@@ -34,7 +34,7 @@ CMD ["air"]
 
 # Production Image
 # Building the binary of the App
-FROM golang:1.19-alpine AS build
+FROM golang:1.19-alpine AS prod
 
 ENV ENV production
 

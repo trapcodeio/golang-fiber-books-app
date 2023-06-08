@@ -5,7 +5,7 @@ services:
     build:
       context: ./../
       dockerfile: .docker/Dockerfile
-      target: release # use `build` for production
+      target: dev # use `prod` for production
     environment:
         - APP_PORT=9000
         - MONGODB_SERVER=mongodb://mongo/books
