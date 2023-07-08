@@ -1,1 +1,1 @@
-air || ~/go/bin/air
+air || ~/go/bin/air || /go/bin/air

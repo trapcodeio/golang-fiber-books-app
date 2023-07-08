@@ -6,8 +6,6 @@ ENV ENV development
 # Needed for VS Code Remote Development
 RUN apk add musl libgcc libstdc++ git curl wget bash ca-certificates gcompat openssh-client
 
-RUN go install github.com/cosmtrek/air@latest
-
 # Set the Current Working Directory inside the container
 WORKDIR /usr/src/app
 
@@ -21,7 +19,8 @@ RUN go mod download
 COPY . .
 
 # Install air for hot reloading
-RUN go get -u github.com/cosmtrek/air
+# binary will be $(go env GOPATH)/bin/air
+RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 
 # Build the code to avoid air building the code at startup
 RUN go build .
