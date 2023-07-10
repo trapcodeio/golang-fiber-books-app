@@ -11,7 +11,7 @@ A simple books app
 
 
 # Set Path
-Set path in remote development to /app
+Set path in remote development
 ```bash
 export PATH=$PATH:/usr/local/go/bin
 ```
